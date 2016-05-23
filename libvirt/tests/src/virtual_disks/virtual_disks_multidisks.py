@@ -495,8 +495,8 @@ def run(test, params, env):
         vm.destroy(gracefully=False)
 
     # Back up xml file.
-     vm_xml_file = os.path.join(test.tmpdir, "vm.xml")
-     virsh.dumpxml(vm_name, extra="--inactive", to_file=vm_xml_file)
+    vm_xml_file = os.path.join(test.tmpdir, "vm.xml")
+    virsh.dumpxml(vm_name, extra="--inactive", to_file=vm_xml_file)
     #vmxml_backup = vm_xml.VMXML.new_from_inactive_dumpxml(vm_name)
 
     # Get device path.
