@@ -1031,12 +1031,20 @@ def run(test, params, env):
 
     finally:
         # Delete snapshots.
-        libvirt.clean_up_snapshots(vm_name, domxml=vmxml_backup)
+        snapshot_lists = virsh.snapshot_list(vm_name)
+        if len(snapshot_lists) > 0:
+            libvirt.clean_up_snapshots(vm_name, snapshot_lists)
+            for snapshot in snapshot_lists:
+                virsh.snapshot_delete(vm_name, snapshot, "--metadata")
 
         # Recover VM.
         if vm.is_alive():
             vm.destroy(gracefully=False)
-        vmxml_backup.sync("--snapshots-metadata")
+            logging.info("Restoring vm...")
+            virsh.undefine(vm_name)
+            virsh.define(vm_xml_file)
+            os.remove(vm_xml_file)
+        
 
         # Restore qemu_config file.
         qemu_config.restore()
