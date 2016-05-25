@@ -645,7 +645,7 @@ def run(test, params, env):
     plus = test_dict.get("conn_plus", "+")
     config_ipv6 = test_dict.get("config_ipv6", "no")
     listen_addr = test_dict.get("listen_addr", "0.0.0.0")
-    uri_port = test_dict.get("uri_port", ":22")
+    uri_port = test_dict.get("uri_port", ":16509")
     server_ip = test_dict.get("server_ip")
     server_user = test_dict.get("server_user")
     server_pwd = test_dict.get("server_pwd")
